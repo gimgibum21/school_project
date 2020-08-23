@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;
+            }
+            /* Style the top navigation bar */
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+            /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            /* Change color on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="{% url 'grade:first' %}">1학년</a>
+            <a href="{% url 'grade:second' %}">2학년</a>
+            <a href="{% url 'grade:third' %}">3학년</a>
+            <a href="{% url 'upload:upload' %}">게시하기</a>
+        </div>
+        <h2>체육</h2>
+        <ul>
+            {% for spray in sprayT %}
+            <li><a href="{% url 'Details:show' spray.id %}">제목:{{ spray.title }}, 게시일:{{ spray.created_at }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

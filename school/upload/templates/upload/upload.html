@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Style the top navigation bar */
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+    /* Style the topnav links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+    }
+    /* Change color on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+</style>
+
+<script>
+    function selectgrade(){
+        var i;
+        var grade = document.getElementById("grade");
+        
+        grade = grade.options[grade.selectedIndex].value;
+        
+        var select = document.getElementById('subject');            
+        var l=select.options.length;
+
+        for (i =0;i<l;i++)
+        {
+            select.remove(0);
+        }
+
+        
+        if (grade=="1학년"){
+         
+            var opt = document.createElement('option');
+            opt.value = "체육";
+            opt.innerHTML = "체육";
+            select.appendChild(opt);
+            
+            var opt = document.createElement('option');
+            opt.value = "과학탐구";
+            opt.innerHTML = "과학탐구";
+            select.appendChild(opt);
+               
+            var opt = document.createElement('option');
+            opt.value = "미술";
+            opt.innerHTML = "미술";
+            select.appendChild(opt);
+            
+        }
+        else if (grade=="2학년"){
+       
+            var opt = document.createElement('option');
+            opt.value = "수1";
+            opt.innerHTML = "수1";
+            select.appendChild(opt);
+            
+            var opt = document.createElement('option');
+            opt.value = "수2";
+            opt.innerHTML = "수2";
+            select.appendChild(opt);
+            
+            var opt = document.createElement('option');
+            opt.value = "영어";
+            opt.innerHTML = "영어";
+            select.appendChild(opt);
+        }            
+        else if (grade=="3학년"){
+            var opt = document.createElement('option');
+            opt.value = "물2";
+            opt.innerHTML = "물2";
+            select.appendChild(opt);
+            
+            var opt = document.createElement('option');
+            opt.value = "화2";
+            opt.innerHTML = "화2";
+            select.appendChild(opt);
+            
+            var opt = document.createElement('option');
+            opt.value = "생2";
+            opt.innerHTML = "생2";
+            select.appendChild(opt);
+        
+
+        }
+         
+        
+    }
+</script>
+
+<div class="topnav">
+            <a href="{% url 'grade:first' %}">1학년</a>
+            <a href="{% url 'grade:second' %}">2학년</a>
+            <a href="{% url 'grade:third' %}">3학년</a>
+            <a href="{% url 'upload:upload' %}">게시하기</a>
+        </div>
+<div class="container">
+    <h2>수행평가 게시하기</h2>
+    <form action="{% url 'upload:create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>학년</label><br>
+            <select id="grade" class="form-control" name="grade"  onChange="selectgrade();">
+                <option>1학년</option>
+                <option>2학년</option>
+                <option>3학년</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>과목</label><br>
+            <select id="subject" class="form-control" name="subject">
+                <option>체육</option>
+                <option>과학탐구</option>
+                <option>미술</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>제목</label><br>
+            <input type="text" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label>내용</label><br>
+            <textarea class="form-control" name="content"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">수행평가 사진</label>
+            <input type="file" name="image" class="form-control-file">
+        </div>
+        <input type="submit" value="게시하기" class="btn btn-outline-primary">
+    </form>
+</div>
+{% endblock %}
